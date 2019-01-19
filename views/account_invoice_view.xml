@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="account_invoice_additional_two_steps_approval_view" model="ir.ui.view">
+        <field name="name">account.invoice.additional.two.steps.approval</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <field name="state" position="attributes">
+                <attribute name="statusbar_visible">g_m_approve,f_m_approve,draft,open,paid</attribute>
+            </field>
+            <button name="action_invoice_open" position="attributes">
+                <attribute name="states">f_m_approve</attribute>
+            </button>
+            <button name="action_invoice_open" position="before">
+                <button name="general_manager_approval" type="object" string="General Manager Approval" states="draft" groups="account_invoice_approval_steps.group_g_m"/>
+                <button name="financial_manager_approval" type="object" string="Financial Manager Approval" states="g_m_approve" groups="account_invoice_approval_steps.group_f_m"/>
+            </button>
+        </field>
+    </record>
+
+</odoo>
