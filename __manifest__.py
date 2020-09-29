@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
-    'name' : 'Invoicing - add two approval steps',
-    'version' : '1.0',
+    'name' : 'Invoicing - add approval steps',
+    'version' : '1.1',
     'depends' : ['account'],
     'data': [
         'security/account_security.xml',
