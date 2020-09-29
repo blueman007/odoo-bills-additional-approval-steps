@@ -13,9 +13,9 @@
                 <attribute name="states">director_approve</attribute>
             </button>
             <button name="action_invoice_open" position="before">
-                <button name="requester_manager_approval" type="object" string="Requester Approval" states="draft" groups="account_invoice_approval_steps.group_r"/>
-                <button name="manager_approval" type="object" string="Manager Approval" states="draft" groups="account_invoice_approval_steps.group_m"/>
-                <button name="director_approval" type="object" string="Director Approval" states="director_approve" groups="account_invoice_approval_steps.group_d"/>
+                <button name="requester_manager_approval" type="object" string="Requester Approval" states="draft" groups="account_invoice_additional_approval_steps.group_r"/>
+                <button name="manager_approval" type="object" string="Manager Approval" states="draft" groups="account_invoice_additional_approval_steps.group_m"/>
+                <button name="director_approval" type="object" string="Director Approval" states="director_approve" groups="account_invoice_additional_approval_steps.group_d"/>
             </button>
         </field>
     </record>
