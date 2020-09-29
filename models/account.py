@@ -10,8 +10,9 @@ class AccountInvoice(models.Model):
     #state = fields.Selection(selection_add=[('g_m_approve', 'G.M. Approve'),('f_m_approve', 'F.M. Approve')])
     
     state = fields.Selection([
-            ('g_m_approve', 'G.M. Approve'),
-            ('f_m_approve', 'F.M. Approve'),
+            ('requester_approve', 'Requester Approve'),
+            ('manager_approve', 'Manager Approve'),
+            ('director_approve', 'Director Approve'),
             ('draft','Draft'),
             ('open', 'Open'),
             ('paid', 'Paid'),
@@ -24,12 +25,16 @@ class AccountInvoice(models.Model):
              " * The 'Cancelled' status is used when user cancel invoice.")
     
     @api.one
-    def general_manager_approval(self):
-        self.write({'state': 'g_m_approve'})
+    def requester_approval(self):
+        self.write({'state': 'requester_approve'})
         
     @api.one
-    def financial_manager_approval(self):
-        self.write({'state': 'f_m_approve'})
+    def manager_approval(self):
+        self.write({'state': 'manager_approve'})
+        
+    @api.one
+    def director_approval(self):
+        self.write({'state': 'director_approve'})
         
         
     
@@ -38,8 +43,8 @@ class AccountInvoice(models.Model):
     def action_invoice_open(self):
         # lots of duplicate calls to action_invoice_open, so we remove those already open
         to_open_invoices = self.filtered(lambda inv: inv.state != 'open')
-        if to_open_invoices.filtered(lambda inv: inv.state != 'f_m_approve'):
-            raise UserError(_("Invoice must be in Financial Manager Approve state in order to validate it."))
+        if to_open_invoices.filtered(lambda inv: inv.state != 'director_approve'):
+            raise UserError(_("Invoice must be in Director Approve state in order to validate it."))
         if to_open_invoices.filtered(lambda inv: float_compare(inv.amount_total, 0.0, precision_rounding=inv.currency_id.rounding) == -1):
             raise UserError(_("You cannot validate an invoice with a negative total amount. You should create a credit note instead."))
         to_open_invoices.action_date_assign()
